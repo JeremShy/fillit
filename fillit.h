@@ -1,21 +1,18 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   fillit.h                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jcamhi <jcamhi@student.42.fr>              +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/11/27 10:37:54 by jcamhi            #+#    #+#             */
-/*   Updated: 2015/11/27 10:53:56 by jcamhi           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef FILLIT_H
 # define FILLIT_H
+# define BUF_SIZE 1000
+# include <unistd.h>
+# include <sys/types.h>
+# include <sys/uio.h>
+# include <stdlib.h>
+# include <fcntl.h>
 
-typedef struct		s_piece {
-	int				tab[4][4];
-	char			name;
-}					t_piece;
+void ft_exit(void);
+typedef struct s_piece
+{
+  char  name;
+  int   tab[4][4];
 
-#endif
+} t_piece;
+
+# endif
