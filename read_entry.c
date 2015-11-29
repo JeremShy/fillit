@@ -6,7 +6,7 @@
 /*   By: JeremShy <JeremShy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/27 11:12:24 by jcamhi            #+#    #+#             */
-/*   Updated: 2015/11/28 17:12:43 by JeremShy         ###   ########.fr       */
+/*   Updated: 2015/11/28 18:13:59 by JeremShy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,30 +17,27 @@ t_piece *ft_read_buf(int fd, char *buff, t_piece **tab)
 	int	i;
 	int	npiece;
 	int	r;
-	int	ntab;
+	int	nline;
+	int ncol;
 
 	npiece = 0;
-	ntab = 0;
+	nline = 0;
+	ncol = 0;
 	while ((r = read(fd, buff, BUF_SIZE)))
 	{
 		i = 0;
 		while(i < r)
 		{
-			if (buff[i] == '\n' && ntab == 15)
-			npiece++;
-			else
-			{
-				if (ntab / 4 == 4 || ntab % 4 == 4 ||
-					(buff[i] != '.' && buff[i] != '#')
-					ft_exit();
-					if (ntab / 4 == 0 && ntab % 4 == 0)
-					tab[npiece]->name = 'A' + npiece;
-
-				}
-			}
-
+			if (ncol == 3 && nline == 3 && buff[i] != '\n')
+				ft_exit(0);
+			if (buff[i] != '*' || buff[i] != '#' || (buff[i] != '\n' %% ncol != -1))
+				ft_exit(1);
+			if (buff[i] == '\n')
+				ncol = -1;
+			else if
 		}
 	}
+}
 
 	t_piece *ft_open_file(char *path)
 	{

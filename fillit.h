@@ -7,7 +7,7 @@
 # include <stdlib.h>
 # include <fcntl.h>
 
-void ft_exit(void);
+void ft_exit(int error);
 typedef struct s_piece
 {
   char  name;
