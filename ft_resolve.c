@@ -6,7 +6,7 @@
 /*   By: jcamhi <jcamhi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/01 18:13:49 by jcamhi            #+#    #+#             */
-/*   Updated: 2015/12/01 20:12:31 by jcamhi           ###   ########.fr       */
+/*   Updated: 2015/12/01 23:02:21 by jcamhi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,10 @@ char	**creationtab(void)
 {
 	char **tab;
 	int x;
+	int y;
 
 	x = 0;
+	y = 0;
 	tab = (char**)malloc(sizeof(char*) * 21);
 	while (x < 20)
 	{
@@ -26,6 +28,16 @@ char	**creationtab(void)
 		x++;
 	}
 	tab[20] = NULL;
+	while (y < 20)
+	{
+		x = 0;
+		while (x < 20)
+		{
+			tab[y][x] = '.';
+			x++;
+		}
+		y++;
+	}
 	return(tab);
 }
 
@@ -61,15 +73,42 @@ int		ft_validite_size(t_piece *piece, int x, int y, int size)
 		j = 0;
 		while (j < 4)
 		{
-			if (piece->tab[i][j] == '#' && (x + j > size || x + j < 0))
+			if (piece->tab[i][j] == '#' && ((x + j) >= size 
+						|| (x + j) < 0 || (y + i) >= size || (y + i) < 0))
 				return (0);
 			j++;
 		}
-		if (piece->tab[i][j] == '#' && (y + i > size || y + i < 0))
-			return (0);
 		i++;
 	}
 	return (1);
+}
+
+int		ft_resolve(t_piece *piece, int size, char **tab)
+{
+	int x;
+	int y;
+
+	y = -3;
+	while (y < size)
+	{
+		x = -3;
+		while (x < size)
+		{
+			if (ft_validite_size(piece, x, y, size))
+			{
+				printf("size valid.\n");
+				if (ft_validite_join(tab, x, y,piece))
+				{
+					printf("join valid.\n");
+					modiftab(tab, piece, x, y);
+					return (1);
+				}
+			}
+			x++;
+		}
+		y++;
+	}
+	return (0);
 }
 
 int main(int ac, char **av)
@@ -113,6 +152,7 @@ int main(int ac, char **av)
 		}
 		y++;
 	}
+	tabl[0][0] = 'A';
 	tabl[0][2] = 'A';
 	tabl[0][3] = 'A';
 	tabl[0][4] = 'A';
@@ -129,6 +169,10 @@ int main(int ac, char **av)
 
 	print_list(tab);
 	ft_putchar('\n');
-	ft_putnbr(ft_validite_join(tabl, 0, 1, tab[0]));
+	print_tab(tabl, 6);
+	ft_putchar('\n');
+	ft_putnbr(ft_resolve(tab[3], 6, tabl));
+	ft_putchar('\n');
+	print_tab(tabl, 6);
 	return (0);
 }

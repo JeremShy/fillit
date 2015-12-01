@@ -6,7 +6,7 @@
 /*   By: jcamhi <jcamhi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/01 17:54:28 by jcamhi            #+#    #+#             */
-/*   Updated: 2015/12/01 19:44:03 by jcamhi           ###   ########.fr       */
+/*   Updated: 2015/12/01 21:46:30 by jcamhi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,26 @@ void	print_piece(t_piece *piece)
 		}
 		ft_putchar('\n');
 		j++;
+	}
+}
+
+void	modiftab(char **tab, t_piece *piece, int x, int y)
+{
+	int i;
+	int j;
+
+	i = 0;
+	j = 0;
+	while (i < 4)
+	{
+		j = 0;
+		while (j < 4)
+		{
+			if (piece->tab[i][j] == '#')
+				tab[i + y][j + x] = piece->name;
+			j++;
+		}
+		i++;
 	}
 }
 
