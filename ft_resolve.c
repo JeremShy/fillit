@@ -6,7 +6,7 @@
 /*   By: jcamhi <jcamhi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/01 18:13:49 by jcamhi            #+#    #+#             */
-/*   Updated: 2015/12/01 23:02:21 by jcamhi           ###   ########.fr       */
+/*   Updated: 2015/12/01 23:59:45 by jcamhi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,15 +83,17 @@ int		ft_validite_size(t_piece *piece, int x, int y, int size)
 	return (1);
 }
 
-int		ft_resolve(t_piece *piece, int size, char **tab)
+int		*ft_resolve(t_piece *piece, int size, char **tab, int *dim)
 {
 	int x;
 	int y;
 
-	y = -3;
+	y = dim[1];
+	x = dim[0];
 	while (y < size)
 	{
-		x = -3;
+		if (x == size)
+			x = -3;
 		while (x < size)
 		{
 			if (ft_validite_size(piece, x, y, size))
@@ -101,16 +103,18 @@ int		ft_resolve(t_piece *piece, int size, char **tab)
 				{
 					printf("join valid.\n");
 					modiftab(tab, piece, x, y);
-					return (1);
+					dim[1] = y;
+					dim[0] = x;
+					return (dim);
 				}
 			}
 			x++;
 		}
 		y++;
 	}
-	return (0);
+	return (NULL);
 }
-
+/*
 int main(int ac, char **av)
 {
 	int         fd;
@@ -128,18 +132,18 @@ int main(int ac, char **av)
 	int y;
 	x = 0;
 	y = 0;
-	/*
-	while (j < 4)
-	{
-		i = 0;
-		while (i < 4)
-		{
-			if (tab[0]->tab[j][i] == '#')
-				tab[0]->tab[j][i] = 'A';
-			i++;
-		}
-		j++;
-		}*/
+	
+	   while (j < 4)
+	   {
+	   i = 0;
+	   while (i < 4)
+	   {
+	   if (tab[0]->tab[j][i] == '#')
+	   tab[0]->tab[j][i] = 'A';
+	   i++;
+	   }
+	   j++;
+	   }
 	char **tabl;
 	tabl = creationtab();
 	while (tabl[y] != NULL)
@@ -152,7 +156,9 @@ int main(int ac, char **av)
 		}
 		y++;
 	}
-	tabl[0][0] = 'A';
+	int dim[2];
+	dim[0] = 1;
+	dim[1] = 1;
 	tabl[0][2] = 'A';
 	tabl[0][3] = 'A';
 	tabl[0][4] = 'A';
@@ -171,8 +177,9 @@ int main(int ac, char **av)
 	ft_putchar('\n');
 	print_tab(tabl, 6);
 	ft_putchar('\n');
-	ft_putnbr(ft_resolve(tab[3], 6, tabl));
-	ft_putchar('\n');
-	print_tab(tabl, 6);
+//	ft_putnbr(ft_resolve(tab[3], 6, tabl, dim));
+//	ft_putchar('\n');
+//	print_tab(tabl, 6);
+	printf("size valide ? %d\n join valide ? %d\n", ft_validite_size(tab[3], 1, 1, 6), ft_validite_join(tabl, 1, 1, tab[3]));
 	return (0);
-}
+	}*/

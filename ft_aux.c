@@ -6,7 +6,7 @@
 /*   By: jcamhi <jcamhi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/01 17:54:28 by jcamhi            #+#    #+#             */
-/*   Updated: 2015/12/01 21:46:30 by jcamhi           ###   ########.fr       */
+/*   Updated: 2015/12/01 23:34:31 by jcamhi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,4 +83,14 @@ void	print_list(t_piece **liste)
 		print_piece(liste[i]);
 		i++;
 	}
+}
+
+int		ft_tablen(t_piece **liste)
+{
+	int i;
+
+	i = 0;
+	while (liste[i] != NULL)
+		i++;
+	return (i);
 }
