@@ -6,7 +6,7 @@
 /*   By: magouin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/30 11:47:40 by magouin           #+#    #+#             */
-/*   Updated: 2015/12/01 18:04:43 by jcamhi           ###   ########.fr       */
+/*   Updated: 2015/12/01 18:59:45 by jcamhi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,19 +92,4 @@ t_piece			**ft_read_buff(int fd)
 		exit(EXIT_FAILURE);
 	ret[i] = NULL;
 	return (ret);
-}
-
-int				main(int ac, char **av)
-{
-	int			fd;
-	t_piece		**tab;
-
-	if (ac == 0)
-		return (0);
-	fd = open(av[1], O_RDONLY);
-	if (fd == -1)
-		return (0);
-	tab = ft_read_buff(fd);
-	print_list(tab);
-	return (0);
 }
