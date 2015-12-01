@@ -1,4 +1,4 @@
 *.out
 *.gch
-.git
-.git2
+.git/*
+.git2/*
