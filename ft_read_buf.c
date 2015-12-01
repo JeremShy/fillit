@@ -6,7 +6,7 @@
 /*   By: magouin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/30 11:47:40 by magouin           #+#    #+#             */
-/*   Updated: 2015/12/01 17:01:03 by jcamhi           ###   ########.fr       */
+/*   Updated: 2015/12/01 18:04:43 by jcamhi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static void		ft_buffer(char *buff, int r, t_piece *ret)
 			exit(EXIT_FAILURE);
 		if (ncol < 4)
 		{
-			ret->tab[ncol][nline] = (buff[i] == '.' ? 0 : 1);
+			ret->tab[ncol][nline] = (buff[i] == '.' ? '.' : '#');
 			ncol++;
 			i++;
 		}
@@ -90,6 +90,7 @@ t_piece			**ft_read_buff(int fd)
 	}
 	if ((c + 1) % 21 != 0)
 		exit(EXIT_FAILURE);
+	ret[i] = NULL;
 	return (ret);
 }
 
@@ -104,5 +105,6 @@ int				main(int ac, char **av)
 	if (fd == -1)
 		return (0);
 	tab = ft_read_buff(fd);
+	print_list(tab);
 	return (0);
 }

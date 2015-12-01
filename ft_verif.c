@@ -6,7 +6,7 @@
 /*   By: jcamhi <jcamhi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/01 13:57:10 by jcamhi            #+#    #+#             */
-/*   Updated: 2015/12/01 17:00:55 by jcamhi           ###   ########.fr       */
+/*   Updated: 2015/12/01 17:54:20 by jcamhi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 static void	test(t_piece const *piece, int x, int y, int *connection)
 {
-	if (piece->tab[y + 1][x] == 1)
+	if (piece->tab[y + 1][x] == '#')
 		(*connection)++;
-	if (piece->tab[y][x + 1] == 1)
+	if (piece->tab[y][x + 1] == '#')
 		(*connection)++;
 }
 
@@ -35,7 +35,7 @@ void		ft_verif(t_piece const *piece)
 		x = 0;
 		while (x < 4)
 		{
-			if (piece->tab[y][x] == 1)
+			if (piece->tab[y][x] == '#')
 			{
 				test(piece, x, y, &connection);
 				diese++;

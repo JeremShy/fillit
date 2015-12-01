@@ -3,7 +3,7 @@
 	filemode = true
 	bare = false
 	logallrefupdates = true
-	precomposeunicode = false
+	precomposeunicode = true
 [remote "origin"]
 	url = git@github.com:JeremShy/fillit.git
 	fetch = +refs/heads/*:refs/remotes/origin/*
