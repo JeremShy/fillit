@@ -6,13 +6,13 @@
 /*   By: magouin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/30 11:47:40 by magouin           #+#    #+#             */
-/*   Updated: 2015/11/30 19:37:38 by magouin          ###   ########.fr       */
+/*   Updated: 2015/12/01 17:01:03 by jcamhi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-t_piece	*ft_create(char name)
+static t_piece	*ft_create(char name)
 {
 	t_piece		*ret;
 
@@ -21,28 +21,38 @@ t_piece	*ft_create(char name)
 	return (ret);
 }
 
-void	ft_buffer(char *buff, int r, t_piece *ret)
+static	void	init(int *i, int r, int *nline, int *ncol)
+{
+	*i = 0;
+	if (r < 20)
+		exit(EXIT_FAILURE);
+	*nline = 0;
+	*ncol = 0;
+}
+
+static void		ft_increment(int *ncol, int *nline, int *i, int r)
+{
+	*ncol = 0;
+	(*nline)++;
+	if (*i + 1 < r)
+		*i = *i + 1;
+}
+
+static void		ft_buffer(char *buff, int r, t_piece *ret)
 {
 	int		i;
 	int		nline;
 	int		ncol;
 
 	i = 0;
-	if (r < 20)
-		exit(EXIT_FAILURE);
-	nline = 0;
-	ncol = 0;
+	init(&i, r, &nline, &ncol);
 	while (i < r)
 	{
-//		printf("ncol : %d - nline : %d - r : %d - i : %d\n", ncol, nline, r, i);
 		if (ncol < 4 && buff[i] != '.' && buff[i] != '#')
 			exit(EXIT_FAILURE);
 		if (ncol < 4)
 		{
-			if (buff[i] == '.')
-				ret->tab[ncol][nline] = 0;
-			else
-				ret->tab[ncol][nline] = 1;
+			ret->tab[ncol][nline] = (buff[i] == '.' ? 0 : 1);
 			ncol++;
 			i++;
 		}
@@ -50,22 +60,14 @@ void	ft_buffer(char *buff, int r, t_piece *ret)
 		{
 			if (buff[i] != '\n')
 				exit(EXIT_FAILURE);
-			ncol = 0;
-			nline++;
-			i++;
+			ft_increment(&ncol, &nline, &i, r);
 		}
 		if (nline == 4 && ncol == 0)
-		{
-			if (buff[i] != '\n')
-				exit(EXIT_FAILURE);
-			else
-				i = r;
-		}
+			buff[i] != '\n' ? exit(EXIT_FAILURE) : (i = r);
 	}
-	ft_putendl("Fichier valide");
 }
 
-t_piece	**ft_read_buff(int fd)
+t_piece			**ft_read_buff(int fd)
 {
 	int		r;
 	char	buff[BUFF_SIZE + 1];
@@ -82,8 +84,8 @@ t_piece	**ft_read_buff(int fd)
 		c += r;
 		buff[BUFF_SIZE] = '\0';
 		ret[i] = ft_create('A' + i);
-		printf("La piece avec le nom %c a ete correctement creee\n", 'A' + i);
 		ft_buffer(buff, r, ret[i]);
+		ft_verif(ret[i]);
 		i++;
 	}
 	if ((c + 1) % 21 != 0)
@@ -91,23 +93,16 @@ t_piece	**ft_read_buff(int fd)
 	return (ret);
 }
 
-void sortie(void)
+int				main(int ac, char **av)
 {
-	ft_putendl("Le fichier fut quitte (RIP)");
-}
+	int			fd;
+	t_piece		**tab;
 
-int		main(int ac, char **av)
-{
-	int	fd;
-	t_piece **tab;
-
-	atexit(sortie);
 	if (ac == 0)
 		return (0);
 	fd = open(av[1], O_RDONLY);
 	if (fd == -1)
 		return (0);
 	tab = ft_read_buff(fd);
-	printf("(Ignorez le message suivant.MDR)\n");
 	return (0);
 }

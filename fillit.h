@@ -6,7 +6,7 @@
 /*   By: magouin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/30 11:41:20 by magouin           #+#    #+#             */
-/*   Updated: 2015/11/30 19:02:44 by magouin          ###   ########.fr       */
+/*   Updated: 2015/12/01 16:48:32 by jcamhi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ typedef struct	s_piece {
 	char		name;
 }				t_piece;
 
-t_piece			*ft_create(char name);
-void			ft_buffer(char *buff, int r, t_piece *ret);
 t_piece			**ft_read_buff(int fd);
+void			ft_verif(t_piece const *piece);
 #endif
